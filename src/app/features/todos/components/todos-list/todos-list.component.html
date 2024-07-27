@@ -1,0 +1,41 @@
+<header>
+  <button (click)="todos.reset()">Reset All</button>
+</header>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Completed</th>
+      <th>Selection ({{ todos.selectedCount() }})</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of todos.items(); track (item.id)) {
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.completed }}</td>
+      <td>
+        <button
+          (click)="
+            todos.selected(item.id)
+              ? todos.deselect(item.id)
+              : todos.select(item.id)
+          "
+        >
+          {{ todos.selected(item.id) ? 'Deselect' : 'Select' }}
+        </button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+
+<footer>
+  <button [disabled]="todos.first()" (click)="todos.previous()">
+    Previous
+  </button>
+  &nbsp;
+  <button [disabled]="todos.last()" (click)="todos.next()">Next</button>
+</footer>
